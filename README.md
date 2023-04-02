@@ -38,7 +38,11 @@ Now you can leverage CSS and JavaScript as you wish.
 
 To simulate an occasion without having to time travel, pass in a relevant date with your initialization:
 
-`occasions('May 04');`
+```
+createApp(App)
+  .use(VueOccasions, {date: 'Apr 01'})
+  .mount('#app')
+```
 
 Be sure to remove the date override once you have completed testing.
 
@@ -50,14 +54,6 @@ vue-occasions will look for its required external files in the directory from wh
 
 ```
 $('#logo').occasions({path:'/my/file/path'}); //this leads to occasions.json, canada.json, etc
-```
-
-### sect
-
-This will give you additional occasions specific to the provided religious sect. 'Christian' is provided.
-
-```
-$('#logo').occasions({sect:'christian'}); //requires christian.json
 ```
 
 ### onSuccess callback

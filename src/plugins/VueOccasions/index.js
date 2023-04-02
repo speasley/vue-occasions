@@ -1,21 +1,16 @@
 import * as core from "./core/index"
-import { version } from "../../../package.json"
+import { name, version } from "../../../package.json"
+import occasions from './occasions.json' assert { type: 'json' }
 
 export default {
   install: (app, options) => {
     app.component("vue-occasions");
-    console.debug(`[vue-occasions] version ${ version } installed.`)
-    // guts
-    /*
-    const todays_date = todaysDate(settings.date_override).slice(0,6)
-    console.debug(todays_date)
-    /*
-    const todays_date = todaysDate(settings.date_override).slice(0,6);
+    const consolePre = `[${name}]`
+    console.debug(`${consolePre} version ${ version } installed.`)
+    const todays_date = options && options.date ? core.todaysDate(options.date).slice(0,6) : core.todaysDate()
     if (occasions[todays_date] !== null) {
-      this.addClass(occasions[todays_date]);
-      this.data('occasion', occasions[todays_date]);
-      settings.onSuccess.call(this);
+      document.body.classList.add(occasions[todays_date])
+      document.body.dataset.occasion = occasions[todays_date]
     }
-    */
   }
 }
