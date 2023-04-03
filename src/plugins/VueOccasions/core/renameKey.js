@@ -1,17 +1,15 @@
-const renameKey = (hash, oldName, newName) => {
-  if (oldName === newName) {
-    return hash;
-  }
+const renameKey = (hash, oldKey, newKey) => {
 
-  if (hash.hasOwnProperty(oldName)) {
-    return {
+  if (oldKey !== newKey) {
+    hash = {
       ...hash,
-      [newName]: hash[oldName],
-      [oldName]: undefined
+      [newKey]: Object.getOwnPropertyDescriptor(hash, oldKey).value,
     };
+    delete hash[oldKey];
   }
 
   return hash;
-};
+
+}
 
 export { renameKey }
