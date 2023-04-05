@@ -1,4 +1,3 @@
-import { ref } from "vue";
 import { monthIndex, monthName } from "./month";
 import { timestamp } from "./timestamp";
 
