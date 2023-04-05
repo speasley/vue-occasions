@@ -3,6 +3,7 @@ import { monthIndex, monthName } from "./month";
 import { timestamp } from "./timestamp";
 
 const oneDay = 86400;
+const oneWeek = 604800;
 
 const firstWeekday = (parameters, override) => {
   const params = parameters.replace(/\s/g, '').split(','); // weekday, month
@@ -110,7 +111,7 @@ const weekdayAfter = (parameters, override) => {
   
   let refDay = new Date(date * 1000).getDay();
   if (refDay === target_weekday_index) {
-    date += 604800; // add seven days if days of week match
+    date += oneWeek; // add seven days if days of week match
   } else {
     let offset = 0;
     while (refDay !== target_weekday_index) {
@@ -147,7 +148,7 @@ const weekdayBefore = (parameters, override) => {
   
   let refDay = new Date(date * 1000).getDay();
   if (refDay === target_weekday_index) {
-    date -= 604800; // subtract seven days if days of week match
+    date -= oneWeek; // subtract seven days if days of week match
   } else {
     let offset = 0;
     while (refDay !== target_weekday_index) {
