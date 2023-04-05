@@ -1,14 +1,27 @@
 # vue-occasions
 
-vue-occasions tags your HTML’s body element with a class and a data attribute reflecting today’s occasion or holiday. You can then style that element with CSS or implement some JavaScript behaviour. For example, you could show special versions of your site’s logo on different holidays or trigger a holiday-specific modal.
+vue-occasions tags your HTML’s body element with a class and data attribute reflecting today’s occasion or holiday. You can then style that element with CSS or implement some JavaScript behaviour. For example, you could show special versions of your site’s logo on different holidays or trigger a holiday-specific modal.
 
-## Installation
+[![Version](https://img.shields.io/npm/v/vue-underscore.svg)](https://www.npmjs.com/package/vue-occasions)
+[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=plastic)](https://www.npmjs.com/package/vue-occasions)
 
-### npm
+
+# Table of Contents
+* [___Installation___](#installation)
+* [___Options___](#options)
+* [___Extras___](#extras)
+* [___Examples___](#examples)
+* [___Notes___](#notes)
+* [___Changelog___](#changelog)
+* [___License___](#license)
+
+# Installation
+
+## npm
 
 `npm install vue-occasions --save`
 
-### yarn
+## Yarn
 
 `yarn add vue-occasions`
 
@@ -34,11 +47,11 @@ On May the 4th, this will result in:
 
 Now you can leverage CSS and JavaScript as you wish in celebration of Star Wars Day.
 
-## Options
+# Options
 
-### custom occasions
+## Custom occasions
 
-You can add your own occasions but supplying a json object with during initialization:
+You can add your own occasions by supplying a JSON object during initialization:
 ```
 createApp(App)
   .use(VueOccasions, {
@@ -51,7 +64,7 @@ createApp(App)
 
 Note: if an occasion already exists for the date you provide, your custom occasion will be given priority.
 
-### date
+## Date
 
 To simulate an occasion without having to time travel, pass in a relevant date with your initialization:
 
@@ -63,7 +76,7 @@ createApp(App)
 
 This is intended for testing purposes only. Be sure to remove the date override once you have completed testing.
 
-### onOccasion callback
+## onOccasion callback
 
 When vue-occasions adds its attributes to your body tag, it will also execute code inside the `onOccasion` callback block.
 
@@ -77,11 +90,11 @@ createApp(App)
   .mount('#app')
 ```
 
-## Extras
+# Extras
 
-### Special dates
+## Special dates
 
-Four special date functions are available: `nthDay()`, `lastWeekday()` and `weekdayAfter()` and `weekdayBefore()`. Use these as follows:
+Four special date functions are available: `nthDay()`, `lastWeekday()`, `weekdayAfter()` and `weekdayBefore()`. Use these as follows:
 
 The first Monday of February:
 ```
@@ -100,18 +113,18 @@ The Tuesday after June 14:
 
 The Tuesday before February 27:
 ```
-"_weekdayBefore(Tue,Feb,27)":"nappy-day"
+"_weekdayBefore(Tue,Feb,27)":"slappy-day"
 ```
 
 Don’t miss those double-quotes.
 
-### Current occasion
+## Current occasion
 
 You can retrieve the current occasion that is attached to your element with `document.querySelector('body').getAttribute('data-occasion')`.
 
-## Usage examples
+# Examples
 
-### Star Wars Day
+## Star Wars Day
 
 Let’s trigger a JavaScript alert when simulating May 4th:
 ```
@@ -119,7 +132,7 @@ createApp(App)
   .use(VueOccasions, {
     date: 'May 04',
     onOccasion: () => {
-      if (document.querySelector('body').getAttribute('data-occasion') === 'star wars') {
+      if (document.querySelector('body').getAttribute('data-occasion') === 'star-wars') {
         alert('May the Fourth be with you.')
       }
     }
@@ -127,9 +140,9 @@ createApp(App)
   .mount('#app')
 ```
 
-### Book club
+## Book club
 
-A book club meets on the last Friday of each month. On those Fridays, their website displays a reminder badge.
+A book club meets on the last Friday of every other month. On those Fridays, their website displays a reminder badge.
 
 Their initialization looks like this:
 
@@ -138,17 +151,11 @@ createApp(App)
   .use(VueOccasions, {
     occasions: {
       "_lastWeekday(Fri,Jan)":"book-club-meeting",
-      "_lastWeekday(Fri,Feb)":"book-club-meeting",
       "_lastWeekday(Fri,Mar)":"book-club-meeting",
-      "_lastWeekday(Fri,Apr)":"book-club-meeting",
       "_lastWeekday(Fri,May)":"book-club-meeting",
-      "_lastWeekday(Fri,Jun)":"book-club-meeting",
       "_lastWeekday(Fri,Jul)":"book-club-meeting",
-      "_lastWeekday(Fri,Aug)":"book-club-meeting",
       "_lastWeekday(Fri,Sep)":"book-club-meeting",
-      "_lastWeekday(Fri,Oct)":"book-club-meeting",
       "_lastWeekday(Fri,Nov)":"book-club-meeting",
-      "_lastWeekday(Fri,Dec)":"book-club-meeting"
     }
   })
   .mount('#app')
@@ -165,14 +172,24 @@ body.book-club-meeting #meeting-tonight {
 }
 ```
 
-## Notes
+# Notes
 
-### Date format
+## Occasion name format
+
+Since occasion names are used for CSS classes, they must follow the [syntax rules](https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors). The occasions provided (`occasions.json`) use hyphenated names.
+
+## Date format
 
 Names of months and weekdays must be their first three letters, title cased. Eg: `Jan`, `Feb`, `Mon` and `Tue`.
 
-## Change Log
+Days must be two digits, so some need leading zeroes. Eg: `08`, `09`, `10`, `11`, etc.
 
-### Apr 5, 2023 v1.0.0
+# Changelog
+
+## Apr 5, 2023 v1.0.0
 
 * Core functionality
+
+# License
+
+[The MIT License](http://opensource.org/licenses/MIT)
