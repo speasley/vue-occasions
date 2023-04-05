@@ -21,7 +21,7 @@ export default {
     if (occasions[todays_date] !== undefined) {
       document.body.classList.add(occasions[todays_date])
       document.body.dataset.occasion = occasions[todays_date]
-      options.onOccasion.call(this);
+      if ( options.onOccasion ) { options.onOccasion.call(this) };
       console.debug(`${consolePre} "${ occasions[todays_date] }" occasion found.`)
     } else {
       console.debug(`${consolePre} no occasion found.`)
