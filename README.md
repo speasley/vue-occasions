@@ -2,7 +2,7 @@
 
 vue-occasions tags your HTML’s body element with a class and data attribute reflecting today’s occasion or holiday. You can then style that element with CSS or implement some JavaScript behaviour. For example, you could show special versions of your site’s logo on different holidays or trigger a holiday-specific modal.
 
-[![Version](https://img.shields.io/npm/v/vue-underscore.svg)](https://www.npmjs.com/package/vue-occasions)
+[![Version](https://img.shields.io/npm/v/vue-occasions.svg)](https://www.npmjs.com/package/vue-occasions)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=plastic)](https://www.npmjs.com/package/vue-occasions)
 
 
