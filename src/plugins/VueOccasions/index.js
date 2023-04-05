@@ -7,7 +7,9 @@ export default {
     app.component("vue-occasions");
     const consolePre = `[${name}]`
     console.debug(`${consolePre} version ${ version } installed.`)
-    let occasions = { ...occasionsData }
+    // merge any user-supplied occasions
+    const userOccasions = options.occasions ? options.occasions : undefined;
+    let occasions = core.mergeHashes(occasionsData, userOccasions)
     // use options-supplied date, or today's date
     const todays_date = options && options.date ? core.todaysDate(options.date).slice(0,6) : core.todaysDate()
     // check for special date

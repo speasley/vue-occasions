@@ -5,7 +5,7 @@ import { renameKey } from "./renameKey";
 import { specialDate } from "./specialDate";
 import { timestamp } from "./timestamp";
 import { todaysDate } from "./todaysDate";
-import { getPath, sanitizePath } from "./utils"
+import { mergeHashes } from "./utils"
 import { firstWeekday, lastWeekday, weekdayBefore, weekdayIndex, weekdayName } from "./weekday"
 
-export { globalYear, monthIndex, monthName, nthDay, renameKey, specialDate, timestamp, todaysDate, getPath, sanitizePath, firstWeekday, lastWeekday, weekdayBefore, weekdayIndex, weekdayName }
+export { globalYear, monthIndex, monthName, nthDay, renameKey, specialDate, timestamp, todaysDate, mergeHashes, firstWeekday, lastWeekday, weekdayBefore, weekdayIndex, weekdayName }
