@@ -2,6 +2,8 @@ import { ref } from "vue";
 import { monthIndex, monthName } from "./month";
 import { timestamp } from "./timestamp";
 
+const oneDay = 86400;
+
 const firstWeekday = (parameters, override) => {
   const params = parameters.replace(/\s/g, '').split(','); // weekday, month
   let [weekday, month] = params.map(param => param.trim());
@@ -38,7 +40,7 @@ const firstWeekday = (parameters, override) => {
     };
 
     const timestampFirstDayOfMonth = timestamp(month_index + 1, 1, year);
-    date = new Date((timestampFirstDayOfMonth + 86400 * offset) * 1000);
+    date = new Date((timestampFirstDayOfMonth + oneDay * offset) * 1000);
     const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     date = `${month} ${day}`;
   }
@@ -83,7 +85,7 @@ const lastWeekday = (parameters, override) => {
     };
 
     const timestampLastDayOfMonth = timestamp(month_index + 1, 0, year);
-    date = new Date((timestampLastDayOfMonth - 86400 * offset) * 1000);
+    date = new Date((timestampLastDayOfMonth - oneDay * offset) * 1000);
     const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     date = `${month} ${day}`;
   }
@@ -118,7 +120,7 @@ const weekdayAfter = (parameters, override) => {
         refDay = 0; // when greater than 6 (Sat), set to 0 (Sun)
       }
     }
-    date = timestamp(target_month_index, target_day, year) + (86400 * offset);
+    date = timestamp(target_month_index, target_day, year) + (oneDay * offset);
   }
 
   date = new Date(date * 1000);
@@ -155,7 +157,7 @@ const weekdayBefore = (parameters, override) => {
         refDay = 6; // when less than 0 (Sun), set to 6 (Sat)
       }
     }
-    date = timestamp(target_month_index, target_day, year) - (86400 * offset);
+    date = timestamp(target_month_index, target_day, year) - (oneDay * offset);
   }
 
   date = new Date(date * 1000);
