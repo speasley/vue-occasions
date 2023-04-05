@@ -34,7 +34,9 @@ On May the 4th, this will result in:
 
 Now you can leverage CSS and JavaScript as you wish.
 
-## Testing an occasion
+## Options
+
+### date
 
 To simulate an occasion without having to time travel, pass in a relevant date with your initialization:
 
@@ -44,9 +46,7 @@ createApp(App)
   .mount('#app')
 ```
 
-Be sure to remove the date override once you have completed testing.
-
-## Options
+This is intended for testing purposes only; it can’t be your birthday every day. Be sure to remove the date override once you have completed testing.
 
 ### path
 
@@ -56,28 +56,29 @@ vue-occasions will look for its required external files in the directory from wh
 $('#logo').occasions({path:'/my/file/path'}); //this leads to occasions.json, canada.json, etc
 ```
 
-### onSuccess callback
+### onOccasion callback
 
-When vue-occasions adds a class to your element, code inside the `onSuccess` callback will be executed.
+When vue-occasions adds its attributes to your element, it will also execute code inside the `onOccasion` callback block.
 
 ```
-$('#logo').occasions({
-  onSuccess: function() {
-    //add your callback code here
-  }
-});
+createApp(App)
+  .use(VueOccasions, {
+    onOccasion: () => {
+      // add your callback code here
+    }
+  })
+  .mount('#app')
 ```
 
 ## Extras
 
 ### Custom occasions
 
-Custom occasions can be added by editing the occasions.json file (or one of the other json files, if
-that makes more sense). Follow the pattern there and you’re away to the races. Happy birthday!
+Custom occasions can be added by editing the occasions.json file. Follow the pattern there and you’re away to the races. Happy birthday!
 
 #### Special dates
 
-Three special date functions are available: `nthDay()`, `lastWeekday()` and `weekdayBefore()`. Use these in the json files as follows:
+Five special date functions are available: `nthDay()`, `firstWeekday()`, `lastWeekday()` and `weekdayAfter()` and `weekdayBefore()`. Use these in the json file as follows:
 
 ```
 "_nthDay(2,Mon,Feb)":"happy-day"
@@ -85,9 +86,19 @@ Three special date functions are available: `nthDay()`, `lastWeekday()` and `wee
 That would give you the second Monday of February.
 
 ```
+"_firstWeekday(Mon,Aug)":"book-club"
+```
+That would give you the first Monday of August.
+
+```
 "_lastWeekday(Mon,May)":"memorial"
 ```
-That would give you the last Monday of May, which the United States observes as Memorial Day.
+That would give you the last Monday of May.
+
+```
+"_weekdayAfter(Tue,Jun,14)":"knitting-group"
+```
+That would give you the Tuesday after June 14.
 
 ```
 "_weekdayBefore(Tue,Feb,27)":"nappy-day"
@@ -114,14 +125,18 @@ You can retrieve the current occasion that is attached to your element by access
 ## Advanced usage
 
 ### Example
+
 ```
-$('#logo').occasions({
-  onSuccess: function() {
-    if( $(this).data('occasion') == 'star-wars' ) {
-      alert('May the Fourth be with you.');
+createApp(App)
+  .use(VueOccasions, {
+    date: "May 04",
+    onOccasion: () => {
+      if (document.querySelector('body').getAttribute('data-occasion') === 'star wars') {
+        alert('May the Fourth be with you.')
+      }
     }
-  }
-});
+  })
+  .mount('#app')
 ```
 
 ## Usage examples
