@@ -1,4 +1,5 @@
 {
+  "_nthDay(3,Mon,Jan)":"mlk",
   "Jan 01":"new-years",
   "Jan 21":"hug",
   "Jan 28":"data-privacy",
@@ -11,8 +12,8 @@
   "Mar 14":"pi",
   "Mar 25":"tolkien",
   "Apr 01":"april-fools",
-  "Apr 02":"test-occasion",
   "Apr 05":"first-contact",
+  "Apr 09":"css-naked",
   "Apr 12":"grilled-cheese",
   "Apr 16":"foursquare",
   "Apr 20":"four-twenty",
@@ -56,6 +57,7 @@
   "Oct 23":"mole",
   "Oct 31":"halloween",
   "_nthDay(1,Sun,Nov)":"dst-ends",
+  "_nthDay(4,Thu,Nov)":"usa-thanksgiving",
   "Nov 01":"all-saints",
   "Nov 11":"remembrance",
   "Dec 05":"ninja",
