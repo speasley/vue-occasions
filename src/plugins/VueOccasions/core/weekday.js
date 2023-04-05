@@ -92,6 +92,44 @@ const lastWeekday = (parameters, override) => {
 
 };
 
+const weekdayAfter = (parameters, override) => {
+  const params = parameters.replace(/\s/g, '').split(','); // weekday, month, day
+  let [target_weekday, target_month, target_day] = params.map(param => param.trim());
+  let target_weekday_index = weekdayIndex(target_weekday)
+  const target_month_index = monthIndex(target_month);
+  target_day = Number(target_day);
+  const year = new Date().getFullYear();
+
+  console.debug(`The ${target_weekday} after ${target_month} ${target_day} ${year} is May 01 2023`)
+  if (override && override.length > 6) {
+    year = override.slice(-4);
+  }
+  
+  let date = timestamp(target_month_index, target_day, year);
+  
+  let refDay = new Date(date * 1000).getDay();
+  if (refDay === target_weekday_index) {
+    date += 604800; // add seven days if days of week match
+  } else {
+    let offset = 0;
+    while (refDay !== target_weekday_index) {
+      refDay++;
+      offset++;
+      if (refDay === 7) {
+        refDay = 0; // when greater than 6 (Sat), set to 0 (Sun)
+      }
+    }
+    date = timestamp(target_month_index, target_day, year) + (86400 * offset);
+  }
+
+  date = new Date(date * 1000);
+  const formattedMonth = monthName(date.getMonth());
+  const formattedDay = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+
+  return `${formattedMonth} ${formattedDay}`;
+
+};
+
 const weekdayBefore = (parameters, override) => {
   const params = parameters.replace(/\s/g, '').split(','); // weekday, month, day
   let [weekday, month, day] = params.map(param => param.trim());
@@ -140,4 +178,4 @@ const weekdayName = (d) => {
   return weekdayNames[d];
 };
 
-export { firstWeekday, lastWeekday, weekdayBefore, weekdayIndex, weekdayName }
+export { firstWeekday, lastWeekday, weekdayAfter, weekdayBefore, weekdayIndex, weekdayName }
