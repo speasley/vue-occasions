@@ -32,9 +32,24 @@ On May the 4th, this will result in:
 <body class="star-wars" data-occasion="star-wars">
 ```
 
-Now you can leverage CSS and JavaScript as you wish.
+Now you can leverage CSS and JavaScript as you wish in celebration of Star Wars Day.
 
 ## Options
+
+### custom occasions
+
+You can add your own occasions but supplying a json object with during initialization:
+```
+createApp(App)
+  .use(VueOccasions, {
+    occasions: {
+      "Feb 27":"birthday"
+    }
+  })
+  .mount('#app')
+```
+
+Note: if an occasion already exists for the date you provide, your custom occasion will be given priority.
 
 ### date
 
@@ -46,19 +61,11 @@ createApp(App)
   .mount('#app')
 ```
 
-This is intended for testing purposes only; it can’t be your birthday every day. Be sure to remove the date override once you have completed testing.
-
-### path
-
-vue-occasions will look for its required external files in the directory from which it is run. If you wish to store these somewhere else, you’ll need to provide the filepath.
-
-```
-$('#logo').occasions({path:'/my/file/path'}); //this leads to occasions.json, canada.json, etc
-```
+This is intended for testing purposes only. Be sure to remove the date override once you have completed testing.
 
 ### onOccasion callback
 
-When vue-occasions adds its attributes to your element, it will also execute code inside the `onOccasion` callback block.
+When vue-occasions adds its attributes to your body tag, it will also execute code inside the `onOccasion` callback block.
 
 ```
 createApp(App)
@@ -72,64 +79,45 @@ createApp(App)
 
 ## Extras
 
-### Custom occasions
+### Special dates
 
-Custom occasions can be added by editing the occasions.json file. Follow the pattern there and you’re away to the races. Happy birthday!
+Four special date functions are available: `nthDay()`, `lastWeekday()` and `weekdayAfter()` and `weekdayBefore()`. Use these as follows:
 
-#### Special dates
-
-Five special date functions are available: `nthDay()`, `firstWeekday()`, `lastWeekday()` and `weekdayAfter()` and `weekdayBefore()`. Use these in the json file as follows:
-
+The first Monday of February:
 ```
-"_nthDay(2,Mon,Feb)":"happy-day"
+"_nthDay(1,Mon,Feb)":"happy-day"
 ```
-That would give you the second Monday of February.
 
-```
-"_firstWeekday(Mon,Aug)":"book-club"
-```
-That would give you the first Monday of August.
-
+The last Monday of May:
 ```
 "_lastWeekday(Mon,May)":"memorial"
 ```
-That would give you the last Monday of May.
 
+The Tuesday after June 14:
 ```
 "_weekdayAfter(Tue,Jun,14)":"knitting-group"
 ```
-That would give you the Tuesday after June 14.
 
+The Tuesday before February 27:
 ```
 "_weekdayBefore(Tue,Feb,27)":"nappy-day"
 ```
-That would give you the Tuesday before February 27.
 
 Don’t miss those double-quotes.
 
-
-### Date override
-
-You can simulate an occasion by passing in the date you wish to test:
-
-```
-$('#logo').occasions({date_override:'May 04'});
-```
-
-This is for testing purposes only; it can’t be your birthday everyday.
-
 ### Current occasion
 
-You can retrieve the current occasion that is attached to your element by accessing `$('#logo').data('occasion')`.
+You can retrieve the current occasion that is attached to your element with `document.querySelector('body').getAttribute('data-occasion')`.
 
-## Advanced usage
+## Usage examples
 
-### Example
+### Star Wars Day
 
+Let’s trigger a JavaScript alert when simulating May 4th:
 ```
 createApp(App)
   .use(VueOccasions, {
-    date: "May 04",
+    date: 'May 04',
     onOccasion: () => {
       if (document.querySelector('body').getAttribute('data-occasion') === 'star wars') {
         alert('May the Fourth be with you.')
@@ -139,35 +127,31 @@ createApp(App)
   .mount('#app')
 ```
 
-## Usage examples
-
 ### Book club
 
-A book club meets on the last Friday of each month. On those Fridays, their website shows a reminder badge.
+A book club meets on the last Friday of each month. On those Fridays, their website displays a reminder badge.
 
-Their `occasions.json` file looks like this:
-
-```
-{
-  "_lastWeekday(Fri,Jan)":"book-club-meeting",
-  "_lastWeekday(Fri,Feb)":"book-club-meeting",
-  "_lastWeekday(Fri,Mar)":"book-club-meeting",
-  "_lastWeekday(Fri,Apr)":"book-club-meeting",
-  "_lastWeekday(Fri,May)":"book-club-meeting",
-  "_lastWeekday(Fri,Jun)":"book-club-meeting",
-  "_lastWeekday(Fri,Jul)":"book-club-meeting",
-  "_lastWeekday(Fri,Aug)":"book-club-meeting",
-  "_lastWeekday(Fri,Sep)":"book-club-meeting",
-  "_lastWeekday(Fri,Oct)":"book-club-meeting",
-  "_lastWeekday(Fri,Nov)":"book-club-meeting",
-  "_lastWeekday(Fri,Dec)":"book-club-meeting"
-}
-```
-
-They call `vue-occasions()` on their `body` element:
+Their initialization looks like this:
 
 ```
-$('body').occasions();
+createApp(App)
+  .use(VueOccasions, {
+    occasions: {
+      "_lastWeekday(Fri,Jan)":"book-club-meeting",
+      "_lastWeekday(Fri,Feb)":"book-club-meeting",
+      "_lastWeekday(Fri,Mar)":"book-club-meeting",
+      "_lastWeekday(Fri,Apr)":"book-club-meeting",
+      "_lastWeekday(Fri,May)":"book-club-meeting",
+      "_lastWeekday(Fri,Jun)":"book-club-meeting",
+      "_lastWeekday(Fri,Jul)":"book-club-meeting",
+      "_lastWeekday(Fri,Aug)":"book-club-meeting",
+      "_lastWeekday(Fri,Sep)":"book-club-meeting",
+      "_lastWeekday(Fri,Oct)":"book-club-meeting",
+      "_lastWeekday(Fri,Nov)":"book-club-meeting",
+      "_lastWeekday(Fri,Dec)":"book-club-meeting"
+    }
+  })
+  .mount('#app')
 ```
 
 In their CSS, they have:
@@ -183,68 +167,12 @@ body.book-club-meeting #meeting-tonight {
 
 ## Notes
 
-### Occasion priority
-
-Only one occasion is intended for a single day. If you use an option to include more occasions,
-those occasions will override the defaults in the event of a date overlap. If you need to avoid
-this, you can simply delete the troublesome line(s) from the associated json file.
-
 ### Date format
 
-Names of months and weekdays must be three letters, as in `Jan`, `Feb`, `Mon` and `Tue`. Dates before the 10th must contain a leading zero, as in `Feb 07`.
-
-### Optimization
-
-If you want to trim some overhead, you can edit the css and json files to remove occasions you don’t
-need.
+Names of months and weekdays must be their first three letters, title cased. Eg: `Jan`, `Feb`, `Mon` and `Tue`.
 
 ## Change Log
 
-### Aug 7, 2014 v0.0.1: Tunnel Mountain
+### Apr 5, 2023 v1.0.0
 
-* Basic functionality
-* Some unofficial holidays
-* Canadian fixed-date national holidays and observances
-* Christian fixed-date holidays and observances
-
-### Aug 8, 2014 v0.0.2
-
-* Country setting bugfix
-* Support for nth weekday occasions (eg. Mother’s Day, Second Sunday of May)
-* Support for the weekday preceding a date (eg. Victoria Day, Monday before May 25)
-* Add Canadian and Christian nth weekday occasions
-* Remove Christian Easter occasions because they are based on moon cycles and beyond the scope of my interest in writing this plugin
-
-### Aug 9, 2014 v0.1.0
-
-* Add callback function
-
-### Apr 10, 2015 v1.0.0: Skoki
-
-* Add Jasmine test suite
-* Add date override
-* Use leading zeroes in all dates
-* Set occasion property on element
-
-### May 29, 2016 v2.0.0: Fort McMurray
-
-* Total rewrite with expanded test suite
-* Move occasions to external files (loaded only as needed)
-* Change date format ("02/07" to "Feb 07")
-* Expand default occasions
-
-### May 29, 2016 v2.1.0
-
-* Add lastWeekday function
-
-### Jun 4, 2016 v2.1.1
-
-* Path setting bugfix
-
-##Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+* Core functionality

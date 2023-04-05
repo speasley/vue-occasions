@@ -5,51 +5,6 @@ import { timestamp } from "./timestamp";
 const oneDay = 86400;
 const oneWeek = 604800;
 
-const firstWeekday = (parameters, override) => {
-  const params = parameters.replace(/\s/g, '').split(','); // weekday, month
-  let [weekday, month] = params.map(param => param.trim());
-  const weekday_index = weekdayIndex(weekday);
-  const month_index = monthIndex(month);
-  const today = new Date();
-  let year = today.getFullYear();
-
-  if (override && override.length > 6) {
-    year = override.slice(-4);
-  }
-
-  const firstDayOfMonth = new Date(year, month_index, 1);
-  let date;
-
-  if (firstDayOfMonth.getDay() === weekday_index) {
-    date = firstDayOfMonth;
-  } else {
-    let offset = 0;
-    let weekdayIndexRef = firstDayOfMonth.getDay();
-    
-    while (weekdayIndexRef !== weekday_index) {
-      weekdayIndexRef++;
-      offset++;
-
-      if (weekdayIndexRef === 7) {
-        weekdayIndexRef = 0;
-      }
-    }
-
-    const timestamp = (month, day, year) => {
-      const date = new Date(year, month, day);
-      return Math.floor(date.getTime() / 1000);
-    };
-
-    const timestampFirstDayOfMonth = timestamp(month_index + 1, 1, year);
-    date = new Date((timestampFirstDayOfMonth + oneDay * offset) * 1000);
-    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-    date = `${month} ${day}`;
-  }
-
-  return date
-
-}
-
 const lastWeekday = (parameters, override) => {
   const params = parameters.replace(/\s/g, '').split(','); // weekday, month
   let [weekday, month] = params.map(param => param.trim());
@@ -179,4 +134,4 @@ const weekdayName = (d) => {
   return weekdayNames[d];
 };
 
-export { firstWeekday, lastWeekday, weekdayAfter, weekdayBefore, weekdayIndex, weekdayName }
+export { lastWeekday, weekdayAfter, weekdayBefore, weekdayIndex, weekdayName }

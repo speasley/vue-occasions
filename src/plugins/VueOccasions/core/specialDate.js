@@ -1,5 +1,5 @@
 import { nthDay } from './nthDay'
-import { firstWeekday, lastWeekday, weekdayAfter, weekdayBefore } from './weekday'
+import { lastWeekday, weekdayAfter, weekdayBefore } from './weekday'
 
 const specialDate = (date, override) => {
 
@@ -18,9 +18,6 @@ const specialDate = (date, override) => {
   } else if (date.startsWith('_lastWeekday')) {
     params = date.substring(13, date.length - 1);
     new_date = lastWeekday(params, override);
-  } else if (date.startsWith('_firstWeekday')) {
-    params = date.substring(14, date.length - 1);
-    new_date = firstWeekday(params, override);
   }
 
   return new_date;
