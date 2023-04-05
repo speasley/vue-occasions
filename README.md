@@ -186,7 +186,7 @@ Days must be two digits, so some need leading zeroes. Eg: `08`, `09`, `10`, `11`
 
 # Changelog
 
-## Apr 5, 2023 v1.0.0
+## Apr 6, 2023 v1.0.0
 
 * Core functionality
 
