@@ -10,7 +10,7 @@ export default {
     // merge any user-supplied occasions
     const userOccasions = options.occasions ? options.occasions : {};
     let occasions = core.mergeHashes(occasionsData, userOccasions)
-    // use options-supplied date, or today"s date
+    // use options-supplied date, or today's date
     const todays_date = options && options.date ? core.todaysDate(options.date).slice(0,6) : core.todaysDate()
     // check for special date
     Object.keys(occasions).forEach(key => {
