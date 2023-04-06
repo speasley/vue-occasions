@@ -8,7 +8,7 @@ export default {
     const consolePre = `[${name}]`
     console.debug(`${consolePre} version ${ version } installed.`)
     // merge any user-supplied occasions
-    const userOccasions = options.occasions ? options.occasions : undefined;
+    const userOccasions = options.occasions ? options.occasions : {};
     let occasions = core.mergeHashes(occasionsData, userOccasions)
     // use options-supplied date, or today's date
     const todays_date = options && options.date ? core.todaysDate(options.date).slice(0,6) : core.todaysDate()
