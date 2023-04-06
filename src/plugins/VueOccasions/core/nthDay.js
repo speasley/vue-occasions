@@ -30,7 +30,7 @@ const nthDay = (parameters, override) => {
   day = day + offset + (7 * (nth - 1));
   d = new Date(d.setDate(day)); // set occasion date
   month = d.getMonth();
-  const date = `${monthName(month)} ${day < 10 ? '0' : ''}${day}`;
+  const date = `${monthName(month)} ${day < 10 ? "0" : ""}${day}`;
   return date;
 };
 
