@@ -1,4 +1,3 @@
-import { globalYear } from "./globalYear";
 import { monthIndex, monthName } from "./month"
 import { nthDay } from "./nthDay";
 import { renameKey } from "./renameKey";
@@ -8,4 +7,4 @@ import { todaysDate } from "./todaysDate";
 import { mergeHashes } from "./utils"
 import { lastWeekday, weekdayBefore, weekdayIndex, weekdayName } from "./weekday"
 
-export { globalYear, monthIndex, monthName, nthDay, renameKey, specialDate, timestamp, todaysDate, mergeHashes, lastWeekday, weekdayBefore, weekdayIndex, weekdayName }
+export { monthIndex, monthName, nthDay, renameKey, specialDate, timestamp, todaysDate, mergeHashes, lastWeekday, weekdayBefore, weekdayIndex, weekdayName }
