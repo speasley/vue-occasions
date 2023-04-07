@@ -9,5 +9,5 @@ test("today's date", () => {
 })
 
 test("date override", () => {
-  expect(core.todaysDate("Feb 27")).toEqual(`Feb 27`);
+  expect(core.todaysDate("Feb 27")).toEqual("Feb 27");
 })
