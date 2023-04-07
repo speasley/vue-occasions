@@ -1,17 +1,12 @@
 import { monthIndex, monthName } from "./month";
 import { weekdayIndex } from "./weekday";
 
-const nthDay = (parameters, override) => {
+const nthDay = (parameters) => {
   const params = parameters.replace(/\s/g, '').split(','); // nth, weekday, month
-  let [nth, weekday, month] = params.map(param => param.trim());
+  let [nth, weekday, month, year = new Date().getFullYear()] = params.map(param => param.trim());
   nth = Number(nth);
   weekday = weekdayIndex(weekday);
   month = monthIndex(month);
-  const today = new Date();
-  let year = today.getFullYear();
-  if (override && override.length > 6) {
-    year = override.slice(-4);
-  }
   let day = 1; // start on the 1st of the month
   let d = new Date(year, month, day); // 1st of the target month
   // set weekday of 1st of the month
