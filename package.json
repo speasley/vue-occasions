@@ -1,7 +1,7 @@
 {
   "name": "vue-occasions",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": ["dates", "holidays", "occasions"],
   "main": "./dist/umd.js",
   "module": "./dist/es.js",
@@ -13,7 +13,8 @@
     "./dist/occasions.json": "./dist/occasions.json"
   },
   "files": [
-    "dist"
+    "./dist",
+    "./src/plugins/VueOccasions/occasions.json"
   ],
   "type": "module",
   "scripts": {
@@ -23,6 +24,16 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/speasley/vue-occasions.git"
+  },
+  "author": "Stephen Peasley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/speasley/vue-occasions/issues"
+  },
+  "homepage": "https://github.com/speasley/vue-occasions/#readme",
   "dependencies": {
     "vue": "^3.2.47"
   },
