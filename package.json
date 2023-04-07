@@ -2,6 +2,7 @@
   "name": "vue-occasions",
   "private": false,
   "version": "1.0.1",
+  "keywords": ["dates", "holidays", "occasions"],
   "main": "./dist/umd.js",
   "module": "./dist/es.js",
   "exports": {
