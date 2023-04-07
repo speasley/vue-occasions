@@ -4,63 +4,45 @@ import { timestamp } from "./timestamp";
 const oneDay = 86400;
 const oneWeek = 604800;
 
-const lastWeekday = (parameters, override) => {
-  const params = parameters.replace(/\s/g, '').split(','); // weekday, month
-  let [weekday, month] = params.map(param => param.trim());
+const lastWeekday = (parameters) => {
+  const params = parameters.replace(/\s/g, "").split(","); // weekday, month
+  let [weekday, month, year = new Date().getFullYear()] = params.map(param => param.trim());
   const weekday_index = weekdayIndex(weekday);
   const month_index = monthIndex(month);
-  const today = new Date();
-  let year = today.getFullYear();
-
-  if (override && override.length > 6) {
-    year = override.slice(-4);
-  }
-
   const lastDayOfMonth = new Date(year, month_index + 1, 0);
-  let date;
+  let date = lastDayOfMonth;
+  let offset = 0;
+  let weekdayIndexRef = lastDayOfMonth.getDay();
 
-  if (lastDayOfMonth.getDay() === weekday_index) {
-    date = lastDayOfMonth;
-  } else {
-    let offset = 0;
-    let weekdayIndexRef = lastDayOfMonth.getDay();
+  while (weekdayIndexRef !== weekday_index) {
+    weekdayIndexRef--;
+    offset++;
 
-    while (weekdayIndexRef !== weekday_index) {
-      weekdayIndexRef--;
-      offset++;
-
-      if (weekdayIndexRef === -1) {
-        weekdayIndexRef = 6;
-      }
+    if (weekdayIndexRef === -1) {
+      weekdayIndexRef = 6;
     }
-
-    const timestamp = (month, day, year) => {
-      const date = new Date(year, month, day);
-      return Math.floor(date.getTime() / 1000);
-    };
-
-    const timestampLastDayOfMonth = timestamp(month_index + 1, 0, year);
-    date = new Date((timestampLastDayOfMonth - oneDay * offset) * 1000);
-    const day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-    date = `${month} ${day}`;
   }
+
+  const timestamp = (month, day, year) => {
+    const date = new Date(year, month, day);
+    return Math.floor(date.getTime() / 1000);
+  };
+
+  const timestampLastDayOfMonth = timestamp(month_index + 1, 0, year);
+  date = new Date((timestampLastDayOfMonth - oneDay * offset) * 1000);
+  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+  date = `${month} ${day}`;
 
   return date;
 
 };
 
-const weekdayAfter = (parameters, override) => {
-  const params = parameters.replace(/\s/g, '').split(','); // weekday, month, day
-  let [target_weekday, target_month, target_day] = params.map(param => param.trim());
+const weekdayAfter = (parameters) => {
+  const params = parameters.replace(/\s/g, "").split(","); // weekday, month, day
+  let [target_weekday, target_month, target_day, year = new Date().getFullYear()] = params.map(param => param.trim());
   let target_weekday_index = weekdayIndex(target_weekday)
   const target_month_index = monthIndex(target_month);
   target_day = Number(target_day);
-  const year = new Date().getFullYear();
-
-  if (override && override.length > 6) {
-    year = override.slice(-4);
-  }
-  
   let date = timestamp(target_month_index, target_day, year);
   
   let refDay = new Date(date * 1000).getDay();
@@ -86,18 +68,12 @@ const weekdayAfter = (parameters, override) => {
 
 };
 
-const weekdayBefore = (parameters, override) => {
-  const params = parameters.replace(/\s/g, '').split(','); // weekday, month, day
-  let [target_weekday, target_month, target_day] = params.map(param => param.trim());
+const weekdayBefore = (parameters) => {
+  const params = parameters.replace(/\s/g, "").split(","); // weekday, month, day
+  let [target_weekday, target_month, target_day, year = new Date().getFullYear()] = params.map(param => param.trim());
   let target_weekday_index = weekdayIndex(target_weekday)
   const target_month_index = monthIndex(target_month);
   target_day = Number(target_day);
-  const year = new Date().getFullYear();
-
-  if (override && override.length > 6) {
-    year = override.slice(-4);
-  }
-  
   let date = timestamp(target_month_index, target_day, year);
   
   let refDay = new Date(date * 1000).getDay();
