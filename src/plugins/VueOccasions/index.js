@@ -19,14 +19,27 @@ export default {
         occasions = core.renameKey(occasions, key, core.specialDate(key, todays_date));
       }
     });
-    // check for standard date
+    // log occasions object, if requested with option
+    if (options && options.log) {
+      const sortedDates = Object.keys(occasions).sort((a, b) => {
+        const dateA = new Date(`2000 ${a}`)
+        const dateB = new Date(`2000 ${b}`)
+        return dateA - dateB;
+      });
+      console.groupCollapsed(`${consolePre} available occasions...`);
+      sortedDates.forEach((date) => {
+        console.log(`${date}: ${occasions[date]}`);
+      });
+      console.groupEnd()
+    }
+    // check for and apply occasion
     if (occasions[todays_date] !== undefined) {
       document.body.classList.add(occasions[todays_date])
       document.body.dataset.occasion = occasions[todays_date]
       if ( options.onOccasion ) { options.onOccasion.call(this) };
       console.debug(`${consolePre} "${ occasions[todays_date] }" occasion found.`)
     } else {
-      console.debug(`${consolePre} no occasion found.`)
+      console.debug(`${consolePre} no occasion found for today.`)
     }
   }
 }
