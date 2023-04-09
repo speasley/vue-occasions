@@ -76,6 +76,16 @@ createApp(App)
 
 This is intended for testing purposes only. Be sure to remove the date override once you have completed testing.
 
+## Log occasions
+
+To log all available occasions to the console, provide the `log` option:
+
+```
+createApp(App)
+  .use(VueOccasions, {log: true})
+  .mount('#app')
+```
+
 ## onOccasion callback
 
 When vue-occasions adds its attributes to your body tag, it will also execute code inside the `onOccasion` callback block.
@@ -186,10 +196,14 @@ Days must be two digits, so some need leading zeroes. Eg: `08`, `09`, `10`, `11`
 
 # Changelog
 
-## Apr 6, 2023 v1.0.4
+## Apr 7, 2023 v1.0.4
 
 * Core functionality
 * Test suite
+
+## Apr 8, 2023 v1.1.0
+
+* Add `log` option to log available occasions to console
 
 # License
 
