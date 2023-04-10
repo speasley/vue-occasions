@@ -2,7 +2,7 @@
   "name": "vue-occasions",
   "description": "Tags your HTML’s body element with a class and data attribute reflecting today’s occasion or holiday.",
   "private": false,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "keywords": [
     "dates",
     "holidays",

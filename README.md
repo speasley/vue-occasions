@@ -3,17 +3,17 @@
 Tags your HTML’s body element with a class and data attribute reflecting today’s occasion or holiday. You can then style that element with CSS or implement some JavaScript behaviour. For example, you could show special versions of your site’s logo on different holidays or trigger a holiday-specific modal.
 
 [![Version](https://img.shields.io/npm/v/vue-occasions?style=flat-square)](https://www.npmjs.com/package/vue-occasions)
-[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)](https://www.npmjs.com/package/vue-occasions)
-
+[![MIT License](https://img.shields.io/packagist/l/doctrine/orm.svg?style=flat-square)](https://www.npmjs.com/package/vue-occasions)
+[![Minified Size](https://img.shields.io/bundlephobia/min/vue-occasions?color=%23F18F01&style=flat-square)](https://www.npmjs.com/package/vue-occasions)
 
 # Table of Contents
-* [___Installation___](#installation)
-* [___Options___](#options)
-* [___Extras___](#extras)
-* [___Examples___](#examples)
-* [___Notes___](#notes)
-* [___Changelog___](#changelog)
-* [___License___](#license)
+* [Installation](#installation)
+* [Options](#options)
+* [Extras](#extras)
+* [Examples](#examples)
+* [Notes](#notes)
+* [Changelog](#changelog)
+* [License](#license)
 
 # Installation
 
@@ -28,7 +28,7 @@ Tags your HTML’s body element with a class and data attribute reflecting today
 Import vue-occasions into your project:
 
 ```
-import VueOccasions from 'vue-occasions'
+import VueOccasions from "vue-occasions"
 ```
 
 Install the plugin in your application:
@@ -36,7 +36,7 @@ Install the plugin in your application:
 ```
 createApp(App)
   .use(VueOccasions)
-  .mount('#app')
+  .mount("#app")
 ```
 
 On May the 4th, this will result in:
@@ -59,7 +59,7 @@ createApp(App)
       "Feb 27":"birthday"
     }
   })
-  .mount('#app')
+  .mount("#app")
 ```
 
 Note: if an occasion already exists for the date you provide, your custom occasion will be given priority.
@@ -70,8 +70,8 @@ To simulate an occasion without having to time travel, pass in a relevant date w
 
 ```
 createApp(App)
-  .use(VueOccasions, {date: 'Apr 01'})
-  .mount('#app')
+  .use(VueOccasions, {date: "Apr 01"})
+  .mount("#app")
 ```
 
 This is intended for testing purposes only. Be sure to remove the date override once you have completed testing.
@@ -83,7 +83,7 @@ To log all available occasions to the console, provide the `log` option:
 ```
 createApp(App)
   .use(VueOccasions, {log: true})
-  .mount('#app')
+  .mount("#app")
 ```
 
 ## onOccasion callback
@@ -97,7 +97,7 @@ createApp(App)
       // add your callback code here
     }
   })
-  .mount('#app')
+  .mount("#app")
 ```
 
 # Extras
@@ -108,29 +108,41 @@ Four special date functions are available: `nthDay()`, `lastWeekday()`, `weekday
 
 The first Monday of February:
 ```
-"_nthDay(1,Mon,Feb)":"happy-day"
+{
+  "_nthDay(1,Mon,Feb)":"happy-day"
+}
 ```
 
 The last Monday of May:
 ```
-"_lastWeekday(Mon,May)":"memorial"
+{
+  "_lastWeekday(Mon,May)":"memorial"
+}
 ```
 
 The Tuesday after June 14:
 ```
-"_weekdayAfter(Tue,Jun,14)":"knitting-group"
+{
+  "_weekdayAfter(Tue,Jun,14)":"knitting-group"
+}
 ```
 
 The Tuesday before February 27:
 ```
-"_weekdayBefore(Tue,Feb,27)":"slappy-day"
+{
+  "_weekdayBefore(Tue,Feb,27)":"slappy-day"
+}
 ```
 
 Don’t miss those double-quotes.
 
 ## Current occasion
 
-You can retrieve the current occasion that is attached to your element with `document.querySelector('body').getAttribute('data-occasion')`.
+You can retrieve the current occasion that is attached to your element with:
+
+```
+document.querySelector("body").getAttribute("data-occasion")
+```
 
 # Examples
 
@@ -140,14 +152,14 @@ Let’s trigger a JavaScript alert when simulating May 4th:
 ```
 createApp(App)
   .use(VueOccasions, {
-    date: 'May 04',
+    date: "May 04",
     onOccasion: () => {
-      if (document.querySelector('body').getAttribute('data-occasion') === 'star-wars') {
-        alert('May the Fourth be with you.')
+      if (document.querySelector("body").getAttribute("data-occasion") === "star-wars") {
+        alert("May the Fourth be with you.")
       }
     }
   })
-  .mount('#app')
+  .mount("#app")
 ```
 
 ## Book club
@@ -165,10 +177,10 @@ createApp(App)
       "_lastWeekday(Fri,May)":"book-club-meeting",
       "_lastWeekday(Fri,Jul)":"book-club-meeting",
       "_lastWeekday(Fri,Sep)":"book-club-meeting",
-      "_lastWeekday(Fri,Nov)":"book-club-meeting",
+      "_lastWeekday(Fri,Nov)":"book-club-meeting"
     }
   })
-  .mount('#app')
+  .mount("#app")
 ```
 
 In their CSS, they have:
@@ -201,7 +213,7 @@ Days must be two digits, so some need leading zeroes. Eg: `08`, `09`, `10`, `11`
 * Core functionality
 * Test suite
 
-## Apr 8, 2023 v1.1.0
+## Apr 8, 2023 v1.1.1
 
 * Add `log` option to log available occasions to console
 
